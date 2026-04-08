@@ -14,9 +14,12 @@ export default function PostCard({ post }: Props) {
       <div className="post-card__header">
         {post.tags.length > 0 && (
           <div className="post-card__tags">
-            {post.tags.map((tag) => (
+            {post.tags.slice(0, 3).map((tag) => (
               <TagBadge key={tag} tag={tag} />
             ))}
+            {post.tags.length > 3 && (
+              <span className="tag tag--default">...</span>
+            )}
           </div>
         )}
         <h2 className="post-card__title">{post.title}</h2>

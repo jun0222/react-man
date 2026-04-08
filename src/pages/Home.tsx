@@ -15,7 +15,7 @@ export default function Home() {
             <em>Frontend.</em>
           </h1>
           <p className="hero__desc">
-            React、TypeScript、JavaScript、CSS、HTML — Web 標準からモダンフロントエンドまで。無駄なし、コードだけ。
+            React、TypeScript、JavaScript、CSS、HTML — Web 標準やモダンフロントエンド。
           </p>
         </div>
       </section>

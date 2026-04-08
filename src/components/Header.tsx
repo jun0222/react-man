@@ -5,7 +5,7 @@ export default function Header() {
     <header className="site-header">
       <div className="site-header__inner">
         <NavLink to="/" className="site-logo">
-          react<span className="accent">man</span>
+          React<span className="accent">Man</span>
         </NavLink>
         <nav className="site-nav">
           <NavLink

@@ -32,6 +32,30 @@ npm run dev
 npm run build
 ```
 
+## GitHub Pages へのデプロイ
+
+### 初回セットアップ
+
+1. GitHub で `react-man` という名前のリポジトリを作成
+2. リポジトリの Settings → Pages → Source を **GitHub Actions** に変更
+3. リモートを追加して push
+
+```bash
+git init
+git remote add origin https://github.com/<username>/react-man.git
+make push m="initial commit"
+```
+
+main に push されるたびに Actions が自動でビルド & デプロイする。
+
+### 日常の操作（Makefile）
+
+```bash
+make dev              # 開発サーバー起動
+make build            # ビルド確認
+make push m="記事追加"  # コミット & push → 自動デプロイ
+```
+
 ## 構成
 
 | 機能 | 詳細 |

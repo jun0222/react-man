@@ -13,13 +13,13 @@ export default function Header() {
             end
             className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
           >
-            Home
+            ホーム
           </NavLink>
           <NavLink
             to="/tags"
             className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
           >
-            Tags
+            タグ
           </NavLink>
         </nav>
       </div>

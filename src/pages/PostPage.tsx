@@ -16,7 +16,7 @@ export default function PostPage() {
     <main className="post-page">
       <header className="post-header">
         <Link to="/" className="post-header__back">
-          ← Back to all posts
+          ← 記事一覧に戻る
         </Link>
 
         {post.tags.length > 0 && (

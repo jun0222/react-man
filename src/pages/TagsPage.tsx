@@ -23,14 +23,14 @@ export default function TagsPage() {
 
   return (
     <main className="tags-page">
-      <h1 className="section-title">Browse by Tag</h1>
+      <h1 className="section-title">タグで絞り込む</h1>
 
       <div className="tags-cloud">
         <button
           className={`tag-btn${active === null ? ' active' : ''}`}
           onClick={() => setActive(null)}
         >
-          All ({posts.length})
+          すべて ({posts.length})
         </button>
         {tags.map(([tag, count]) => (
           <button
@@ -46,7 +46,7 @@ export default function TagsPage() {
       <div className="posts-grid">
         {filtered.length === 0 ? (
           <div className="posts-empty">
-            <p>// No posts with this tag yet.</p>
+            <p>// このタグの記事はまだありません。</p>
           </div>
         ) : (
           filtered.map((post) => <PostCard key={post.slug} post={post} />)

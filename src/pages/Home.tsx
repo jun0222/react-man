@@ -15,17 +15,17 @@ export default function Home() {
             <em>Frontend.</em>
           </h1>
           <p className="hero__desc">
-            React, TypeScript, JavaScript, CSS, HTML — web standards and modern frontend development. No fluff, just code.
+            React、TypeScript、JavaScript、CSS、HTML — Web 標準からモダンフロントエンドまで。無駄なし、コードだけ。
           </p>
         </div>
       </section>
 
       <main className="posts-section">
-        <h2 className="section-title">Latest Posts — {posts.length}</h2>
+        <h2 className="section-title">最新記事 — {posts.length}</h2>
         <div className="posts-grid">
           {posts.length === 0 ? (
             <div className="posts-empty">
-              <p>// No posts yet. Drop a .md file in /posts to get started.</p>
+              <p>// まだ記事がありません。/posts に .md ファイルを置いてください。</p>
             </div>
           ) : (
             posts.map((post) => <PostCard key={post.slug} post={post} />)

@@ -1,73 +1,56 @@
-# React + TypeScript + Vite
+# reactman
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React + TypeScript + Vite で動くネオブルータリズムテーマのフロントエンド技術ブログ。
 
-Currently, two official plugins are available:
+## 使い方
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### 記事を書く
 
-## React Compiler
+`/posts/` に `.md` ファイルを置くだけ。ファイル名が URL の slug になる。
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```markdown
+---
+title: "記事タイトル"
+date: "2024-04-08"
+tags: ["React", "TypeScript"]
+description: "記事の概要"
+---
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+本文...
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 起動
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
+
+### ビルド
+
+```bash
+npm run build
+```
+
+## 構成
+
+| 機能 | 詳細 |
+|---|---|
+| ルーティング | `/` 一覧 / `/posts/:slug` 記事 / `/tags` タグ絞り込み |
+| Syntax highlight | highlight.js — TS / JS / HTML / CSS / JSX 等に対応 |
+| コードブロック | 言語ラベル + Copy ボタン付き |
+| テーマ | ネオブルータリズム（太枠・オフセットシャドウ・黄/ピンク/青） |
+| フォント | Space Grotesk（本文）+ Space Mono（コード・日付） |
+| タグ色 | react/ts → 青、js → オレンジ、css → ピンク、html → オレンジ etc. |
+
+## タグ色の対応
+
+タグ名に応じて自動でバッジの色が変わる。
+
+| タグ | 色 |
+|---|---|
+| react, typescript, ts, hooks | 青 |
+| javascript, js, html, vite | オレンジ |
+| css, frontend | ピンク |
+| web, performance | 緑 |
+| その他 | 黄 |

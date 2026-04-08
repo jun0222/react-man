@@ -1,0 +1,28 @@
+import { NavLink } from 'react-router-dom'
+
+export default function Header() {
+  return (
+    <header className="site-header">
+      <div className="site-header__inner">
+        <NavLink to="/" className="site-logo">
+          react<span className="accent">man</span>
+        </NavLink>
+        <nav className="site-nav">
+          <NavLink
+            to="/"
+            end
+            className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
+          >
+            Home
+          </NavLink>
+          <NavLink
+            to="/tags"
+            className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
+          >
+            Tags
+          </NavLink>
+        </nav>
+      </div>
+    </header>
+  )
+}

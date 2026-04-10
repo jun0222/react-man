@@ -3,8 +3,20 @@ import remarkGfm from 'remark-gfm'
 import rehypeRaw from 'rehype-raw'
 import type { Components } from 'react-markdown'
 import CodeBlock from './CodeBlock'
+import OgpCard from './OgpCard'
 
 const components: Components = {
+  a({ href, children }) {
+    const text = String(children)
+    if (href && text === href && /^https?:\/\//.test(href)) {
+      return <OgpCard url={href} />
+    }
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer">
+        {children}
+      </a>
+    )
+  },
   code({ className, children, ...props }) {
     const match = /language-(\w+)/.exec(className ?? '')
     const isInline = !match

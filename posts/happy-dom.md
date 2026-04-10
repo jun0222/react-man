@@ -1,7 +1,7 @@
 ---
 title: "happy-dom とは"
 date: "2026-04-10"
-tags: ["happy-dom", "jsdom", "test", "jest", "vitest", "bundlesize", "security"]
+tags: ["happy-dom", "jsdom", "test", "jest", "vitest", "バンドルサイズ", "セキュリティ"]
 description: "happy-dom の概要と、lodash・Next.js のような大きなライブラリを安易に導入しないほうがよい理由を整理。"
 ---
 

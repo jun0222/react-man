@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 
 interface OgpData {
   title: string | null
@@ -8,54 +8,36 @@ interface OgpData {
   url: string
 }
 
-// リクエストの重複排除用キャッシュ（同一 URL を複数回 fetch しない）
-const cache = new Map<string, Promise<OgpData | null>>()
-
-function fetchOgp(url: string): Promise<OgpData | null> {
-  if (!cache.has(url)) {
-    cache.set(
-      url,
-      fetch(`https://api.microlink.io/?url=${encodeURIComponent(url)}`)
-        .then((res) => res.json())
-        .then((json) => {
-          if (json.status !== 'success') return null
-          return {
-            title: json.data.title ?? null,
-            description: json.data.description ?? null,
-            image: json.data.image?.url ?? null,
-            publisher: json.data.publisher ?? null,
-            url: json.data.url ?? url,
-          }
-        })
-        .catch(() => null),
-    )
+async function fetchOgp(url: string): Promise<OgpData | null> {
+  const res = await fetch(`https://api.microlink.io/?url=${encodeURIComponent(url)}`)
+  const json = await res.json()
+  if (json.status !== 'success') return null
+  return {
+    title: json.data.title ?? null,
+    description: json.data.description ?? null,
+    image: json.data.image?.url ?? null,
+    publisher: json.data.publisher ?? null,
+    url: json.data.url ?? url,
   }
-  return cache.get(url)!
 }
-
-type State = { status: 'loading' } | { status: 'ok'; data: OgpData } | { status: 'fail' }
 
 interface Props {
   url: string
 }
 
 export default function OgpCard({ url }: Props) {
-  const [state, setState] = useState<State>({ status: 'loading' })
+  const { data, isPending, isError } = useQuery({
+    queryKey: ['ogp', url],
+    queryFn: () => fetchOgp(url),
+    staleTime: Infinity,
+    retry: false,
+  })
 
-  useEffect(() => {
-    let cancelled = false
-    fetchOgp(url).then((data) => {
-      if (cancelled) return
-      setState(data ? { status: 'ok', data } : { status: 'fail' })
-    })
-    return () => { cancelled = true }
-  }, [url])
-
-  if (state.status === 'loading') {
+  if (isPending) {
     return <span className="ogp-card ogp-card--loading" />
   }
 
-  if (state.status === 'fail') {
+  if (isError || !data) {
     return (
       <a href={url} target="_blank" rel="noopener noreferrer" className="ogp-card ogp-card--fallback">
         {url}
@@ -63,7 +45,6 @@ export default function OgpCard({ url }: Props) {
     )
   }
 
-  const { data } = state
   const domain = (() => {
     try { return new URL(url).hostname } catch { return url }
   })()

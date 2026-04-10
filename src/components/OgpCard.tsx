@@ -1,4 +1,4 @@
-import { use, Suspense } from 'react'
+import { useEffect, useState } from 'react'
 
 interface OgpData {
   title: string | null
@@ -8,6 +8,7 @@ interface OgpData {
   url: string
 }
 
+// リクエストの重複排除用キャッシュ（同一 URL を複数回 fetch しない）
 const cache = new Map<string, Promise<OgpData | null>>()
 
 function fetchOgp(url: string): Promise<OgpData | null> {
@@ -32,10 +33,29 @@ function fetchOgp(url: string): Promise<OgpData | null> {
   return cache.get(url)!
 }
 
-function OgpCardInner({ url }: { url: string }) {
-  const data = use(fetchOgp(url))
+type State = { status: 'loading' } | { status: 'ok'; data: OgpData } | { status: 'fail' }
 
-  if (!data) {
+interface Props {
+  url: string
+}
+
+export default function OgpCard({ url }: Props) {
+  const [state, setState] = useState<State>({ status: 'loading' })
+
+  useEffect(() => {
+    let cancelled = false
+    fetchOgp(url).then((data) => {
+      if (cancelled) return
+      setState(data ? { status: 'ok', data } : { status: 'fail' })
+    })
+    return () => { cancelled = true }
+  }, [url])
+
+  if (state.status === 'loading') {
+    return <span className="ogp-card ogp-card--loading" />
+  }
+
+  if (state.status === 'fail') {
     return (
       <a href={url} target="_blank" rel="noopener noreferrer" className="ogp-card ogp-card--fallback">
         {url}
@@ -43,6 +63,7 @@ function OgpCardInner({ url }: { url: string }) {
     )
   }
 
+  const { data } = state
   const domain = (() => {
     try { return new URL(url).hostname } catch { return url }
   })()
@@ -60,17 +81,5 @@ function OgpCardInner({ url }: { url: string }) {
         <p className="ogp-card__domain">{data.publisher ?? domain}</p>
       </div>
     </a>
-  )
-}
-
-interface Props {
-  url: string
-}
-
-export default function OgpCard({ url }: Props) {
-  return (
-    <Suspense fallback={<span className="ogp-card ogp-card--loading" />}>
-      <OgpCardInner url={url} />
-    </Suspense>
   )
 }

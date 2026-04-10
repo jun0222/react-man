@@ -5,4 +5,9 @@ export default defineConfig({
   plugins: [react()],
   assetsInclude: ['**/*.md'],
   base: '/',
+  test: {
+    environment: 'happy-dom',
+    globals: true,
+    setupFiles: ['./src/test/setup.ts'],
+  },
 })

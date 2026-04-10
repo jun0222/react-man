@@ -612,6 +612,70 @@ img {
   transform: translate(-3px, -3px);
 }
 
+/* ===== Mermaid Diagram ===== */
+.mermaid-block {
+  border: var(--border);
+  box-shadow: var(--shadow);
+  margin: 1.75rem 0;
+  overflow: hidden;
+}
+
+.mermaid-block__label {
+  display: block;
+  padding: 0.4rem 1rem;
+  background: var(--black);
+  color: var(--yellow);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-bottom: 2px solid #333;
+}
+
+.mermaid-block__svg {
+  background: var(--bg);
+  padding: 2rem;
+  overflow-x: auto;
+  display: flex;
+  justify-content: center;
+}
+
+/* Mermaid が生成する SVG の微調整 */
+.mermaid-block__svg svg {
+  max-width: 100%;
+  height: auto;
+  font-family: var(--font-sans) !important;
+}
+
+/* ノードの枠線を太く */
+.mermaid-block__svg .node rect,
+.mermaid-block__svg .node circle,
+.mermaid-block__svg .node ellipse,
+.mermaid-block__svg .node polygon,
+.mermaid-block__svg .node path {
+  stroke-width: 2px !important;
+}
+
+/* エッジの太さ */
+.mermaid-block__svg .edgePath .path {
+  stroke-width: 2px !important;
+}
+
+.mermaid-block--error .mermaid-block__label {
+  background: #c0392b;
+  color: var(--white);
+}
+
+.mermaid-block__error-msg {
+  padding: 1rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: #c0392b;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
 /* ===== OGP Card ===== */
 .ogp-card {
   display: flex;

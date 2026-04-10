@@ -1,3 +1,10 @@
+---
+title: "ステートレスコンポーネントとは"
+date: "2026-04-10"
+tags: ["React", "コンポーネント設計", "useState", "useRef", "useImperativeHandle", "forwardRef"]
+description: "state は親で持ち子はプレゼンテーションに徹する設計原則と、子 state が崩壊を招く具体例・Mermaid 図で整理。"
+---
+
 ## ステートレスコンポーネントとは
 
 基本的にはstateは親コンポーネントで定義して、子コンポーネントに渡すと良い。
@@ -78,4 +85,22 @@ const OrderForm = () => {
     </div>
   );
 };
+```
+
+## メリット
+
+```mermaid
+graph TD
+    subgraph "Stateless Component (Dumb)"
+        A[Props: 外部からの入力] --> B{UI Rendering}
+        B --> C[View: 見た目のみ]
+    end
+
+    style A fill:#f9f,stroke:#333
+    style C fill:#bbf,stroke:#333
+
+    D[メリット1: 予測可能] --- B
+    E[メリット2: 再利用性] --- B
+    F[メリット3: テスト容易] --- B
+    G[メリット4: 保守性] --- B
 ```

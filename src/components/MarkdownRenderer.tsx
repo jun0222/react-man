@@ -4,6 +4,7 @@ import rehypeRaw from 'rehype-raw'
 import type { Components } from 'react-markdown'
 import CodeBlock from './CodeBlock'
 import OgpCard from './OgpCard'
+import MermaidDiagram from './MermaidDiagram'
 
 const components: Components = {
   a({ href, children }) {
@@ -32,6 +33,7 @@ const components: Components = {
     const lang = match[1]
     const code = String(children).replace(/\n$/, '')
 
+    if (lang === 'mermaid') return <MermaidDiagram code={code} />
     return <CodeBlock code={code} language={lang} />
   },
   pre({ children }) {
